@@ -1,0 +1,213 @@
+<!--
+  examples/expected-guide-1.html
+
+  Placeholder render of what guide.html.tmpl produces when fed the placeholder
+  sample-input-1.txt + the title "难忘的一次劳动" + an inferred grade of "小学
+  4 年级".
+
+  This file is checked in so that external readers (and reviewers without a
+  running SoyaOS instance) can open it in a browser and see the visual shape
+  of a real Compo artifact. Once the runtime can render this deterministically,
+  this file becomes the regression anchor for the Compo flagship CI.
+
+  NOTE: This file is a snapshot — when the templates evolve, regenerate this
+  file and commit the diff in the same change.
+-->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>难忘的一次劳动 · Compo 写作指引</title>
+  <style>
+    :root {
+      --soy-milk:      #FBFAF5;
+      --tofu:          #FFFFFF;
+      --soy-sauce:     #2B2419;
+      --soybean-gold:  #E0A52C;
+      --soybean-skin:  #FBEFCF;
+      --roasted-soy:   #A6781C;
+      --warm-700:      #4A4133;
+      --warm-600:      #6B6051;
+      --border-subtle: rgba(75,65,51,0.08);
+      --border-medium: rgba(75,65,51,0.14);
+      --shadow-card:   rgba(75,55,30,0.06) 0 2px 6px;
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0; padding: 0;
+      background: var(--soy-milk);
+      color: var(--soy-sauce);
+      font-family: "Plus Jakarta Sans", "PingFang SC", "HarmonyOS Sans SC",
+                   system-ui, -apple-system, sans-serif;
+      font-size: 16px; line-height: 1.6;
+    }
+    .page { max-width: 760px; margin: 0 auto; padding: 48px 32px 64px; }
+    .eyebrow {
+      font-size: 13px; font-weight: 600; letter-spacing: 0.7px;
+      text-transform: uppercase; color: var(--roasted-soy); margin-bottom: 12px;
+    }
+    h1.title {
+      font-size: 36px; font-weight: 700; line-height: 1.15;
+      letter-spacing: -0.54px; margin: 0 0 24px;
+    }
+    .opening {
+      background: var(--tofu); border: 1px solid var(--border-subtle);
+      border-radius: 20px; padding: 24px 28px;
+      box-shadow: var(--shadow-card); margin-bottom: 40px;
+    }
+    .opening h2 {
+      font-size: 13px; font-weight: 600; letter-spacing: 0.7px;
+      text-transform: uppercase; color: var(--roasted-soy); margin: 0 0 12px;
+    }
+    .opening p { margin: 0; font-size: 17px; line-height: 1.65; color: var(--warm-700); }
+    .section-label {
+      font-size: 13px; font-weight: 600; letter-spacing: 0.7px;
+      text-transform: uppercase; color: var(--roasted-soy); margin: 0 0 16px;
+    }
+    .points {
+      display: grid; grid-template-columns: 1fr; gap: 16px; margin-bottom: 40px;
+      counter-reset: point;
+    }
+    @media (min-width: 720px) { .points { grid-template-columns: 1fr 1fr 1fr; } }
+    .point.card {
+      background: var(--tofu); border: 1px solid var(--border-subtle);
+      border-radius: 20px; padding: 24px;
+      box-shadow: var(--shadow-card); position: relative;
+      counter-increment: point;
+    }
+    .point.card::after {
+      content: counter(point, decimal-leading-zero);
+      position: absolute; top: 18px; right: 22px;
+      font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 12px; font-weight: 600; letter-spacing: 0.5px;
+      color: var(--soybean-gold);
+    }
+    .point h3 {
+      font-size: 20px; font-weight: 600; line-height: 1.35;
+      letter-spacing: -0.2px; margin: 0 0 12px; color: var(--soy-sauce);
+    }
+    .point p { margin: 0; font-size: 15px; line-height: 1.6; color: var(--warm-600); }
+    .vocab-grid { display: grid; grid-template-columns: 1fr; gap: 24px; margin-bottom: 40px; }
+    @media (min-width: 720px) { .vocab-grid { grid-template-columns: 1fr 1fr; } }
+    .vocab-col.card {
+      background: var(--tofu); border: 1px solid var(--border-subtle);
+      border-radius: 20px; padding: 24px 28px; box-shadow: var(--shadow-card);
+    }
+    .vocab-col h2 {
+      font-size: 13px; font-weight: 600; letter-spacing: 0.7px;
+      text-transform: uppercase; color: var(--roasted-soy); margin: 0 0 16px;
+    }
+    .vocab-list { list-style: none; margin: 0; padding: 0; }
+    .vocab-list li {
+      padding: 8px 0; border-bottom: 1px solid var(--border-subtle);
+      font-size: 15px; line-height: 1.55; color: var(--warm-700);
+    }
+    .vocab-list li:last-child { border-bottom: none; }
+    .vocab-list .word { font-weight: 600; color: var(--soy-sauce); margin-right: 8px; }
+    .vocab-list .meaning, .vocab-list .why { color: var(--warm-600); font-size: 14px; }
+    .vocab-list .phrase { display: block; color: var(--soy-sauce); margin-bottom: 4px; }
+    .pitfalls {
+      background: var(--soybean-skin); border: 1px solid var(--border-medium);
+      border-radius: 20px; padding: 24px 28px; margin-bottom: 40px;
+    }
+    .pitfalls h2 {
+      font-size: 13px; font-weight: 600; letter-spacing: 0.7px;
+      text-transform: uppercase; color: var(--roasted-soy); margin: 0 0 16px;
+    }
+    .pitfalls ol { margin: 0; padding-left: 0; counter-reset: pitfall; list-style: none; }
+    .pitfalls li {
+      counter-increment: pitfall; padding: 10px 0 10px 36px;
+      border-bottom: 1px solid var(--border-subtle);
+      font-size: 15px; line-height: 1.6; color: var(--warm-700); position: relative;
+    }
+    .pitfalls li:last-child { border-bottom: none; }
+    .pitfalls li::before {
+      content: counter(pitfall); position: absolute; left: 0; top: 12px;
+      width: 24px; height: 24px; border-radius: 9999px;
+      background: var(--soybean-gold); color: var(--soy-sauce);
+      font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 12px; font-weight: 600;
+      display: inline-flex; align-items: center; justify-content: center;
+    }
+    .pitfalls .pitfall-title { font-weight: 600; color: var(--soy-sauce); margin-right: 8px; }
+    .sample.card {
+      background: var(--tofu); border: 1px solid var(--border-subtle);
+      border-left: 4px solid var(--soybean-gold);
+      border-radius: 20px; padding: 24px 28px; box-shadow: var(--shadow-card);
+    }
+    .sample h2 {
+      font-size: 13px; font-weight: 600; letter-spacing: 0.7px;
+      text-transform: uppercase; color: var(--roasted-soy); margin: 0 0 12px;
+    }
+    .sample p { margin: 0; font-size: 16px; line-height: 1.75; color: var(--warm-700); text-indent: 2em; }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <div class="eyebrow">Compo · 小学作文写作指引</div>
+    <h1 class="title">难忘的一次劳动</h1>
+
+    <section class="opening">
+      <h2>开篇方向</h2>
+      <p>用一个具体的画面切入：可以是手心被锄头磨出的水泡，可以是傍晚被汗水浸透的衣领，也可以是奶奶递过来的一杯凉茶。先把读者拉进现场，再交代时间地点，最后才点题——这样读者会跟着你走，而不是被"今天我们去劳动了"劝退。</p>
+    </section>
+
+    <h2 class="section-label">三个写作要点</h2>
+    <section class="points">
+      <article class="point card">
+        <h3>画面破题</h3>
+        <p>开头第一句话不要写"今天我"，而要写一个看得见、摸得着的画面。比如"手心的水泡刚破，淡黄色的液体粘住了锄头柄"，让读者先看到画面，再听你说事。</p>
+      </article>
+      <article class="point card">
+        <h3>五感入文</h3>
+        <p>劳动是身体活，所以要写身体的感受。汗水的咸味、泥土的腥气、傍晚阳光的烫、奶奶手心的茧——把这些感官细节铺开，文章自然就活了。</p>
+      </article>
+      <article class="point card">
+        <h3>结尾留白</h3>
+        <p>不要在结尾喊"我懂得了劳动的辛苦"，而要用一个小动作收束。比如"我把那把锄头靠回墙边时，发现它和爷爷靠了一辈子的位置，刚好重合。"让读者自己懂。</p>
+      </article>
+    </section>
+
+    <div class="vocab-grid">
+      <section class="vocab-col card">
+        <h2>好词 · 8 个</h2>
+        <ul class="vocab-list">
+          <li><span class="word">汗津津</span><span class="meaning">形容皮肤被汗水浸湿的样子</span></li>
+          <li><span class="word">湿漉漉</span><span class="meaning">形容物体被水浸透的状态</span></li>
+          <li><span class="word">粗糙</span><span class="meaning">表面不光滑，常用来写老茧</span></li>
+          <li><span class="word">泛黄</span><span class="meaning">颜色变成淡黄，常用来写阳光或旧物</span></li>
+          <li><span class="word">弓着腰</span><span class="meaning">弯腰劳作的姿态</span></li>
+          <li><span class="word">黝黑</span><span class="meaning">皮肤被太阳晒得发暗</span></li>
+          <li><span class="word">踉跄</span><span class="meaning">走路不稳，可用来写体力透支</span></li>
+          <li><span class="word">沉甸甸</span><span class="meaning">形容物体重量足，可写收获</span></li>
+        </ul>
+      </section>
+      <section class="vocab-col card">
+        <h2>好句 · 5 句</h2>
+        <ul class="vocab-list">
+          <li><span class="phrase">汗珠从额角滑下，砸在干裂的土上，洇开一个深色的小圆。</span><span class="why">用动词"砸"+"洇"，让汗水有重量、有痕迹。</span></li>
+          <li><span class="phrase">锄头每落下一次，都像在叩一扇沉默了很久的门。</span><span class="why">把锄头声比作叩门，让劳动的节奏有了情感。</span></li>
+          <li><span class="phrase">奶奶递过来一杯凉茶，杯壁上凝着一层细密的水珠。</span><span class="why">用"凝"字写水珠，比"有"更精准、更画面。</span></li>
+          <li><span class="phrase">傍晚的风掠过田埂，把白天积攒的热气一点点吹散。</span><span class="why">"掠过"+"吹散"让风有了动作，有了温度变化。</span></li>
+          <li><span class="phrase">我望着自己手心新长出的水泡，忽然觉得它比奖状更像一枚勋章。</span><span class="why">用对比把抽象的"劳动意义"落到具体物上。</span></li>
+        </ul>
+      </section>
+    </div>
+
+    <section class="pitfalls">
+      <h2>要避免的 3 个坑</h2>
+      <ol>
+        <li><span class="pitfall-title">口号收尾</span>不要用"我懂得了劳动的辛苦/伟大"这种口号结尾。改用一个动作或画面，让读者自己得出感受。</li>
+        <li><span class="pitfall-title">流水账</span>不要按"起床—出发—到地—劳动—回家"平铺直叙。挑一两个高光时刻展开，其余一笔带过。</li>
+        <li><span class="pitfall-title">形容词堆砌</span>不要把"辛苦的、伟大的、难忘的"堆在一起。形容词不如一个具体动词或一个画面有力。</li>
+      </ol>
+    </section>
+
+    <section class="sample card">
+      <h2>范例段落 · 仅供模仿，不要照抄</h2>
+      <p>锄头第一次落下去的时候，我手心一震，差点没握住。爷爷在旁边没说话，只是把我的手指重新摆到柄上，多攥了半寸。第二次、第三次，土块翻起来，露出底下湿润的褐色，蚯蚓被惊得扭了一下身子。汗水顺着我的下巴滴到锄头上，又被太阳烤干。傍晚收工，奶奶端来一杯凉茶，杯壁上凝着水珠。我喝完一抬头，发现自己的影子和爷爷的影子，在田埂上叠成了同一条。</p>
+    </section>
+  </main>
+</body>
+</html>

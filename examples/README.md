@@ -1,0 +1,50 @@
+# Examples — sample inputs and expected outputs
+
+This directory holds end-to-end fixtures for Compo: each *sample input* is what
+a parent might paste / upload, and each *expected guide* is what Compo should
+produce after the 3-stage prompt chain plus template render.
+
+These pairs serve two jobs:
+
+1. **Documentation.** External readers can open `expected-guide-1.html` in a
+   browser and instantly see the shape of a real Compo artifact, without
+   needing to spin up the runtime.
+2. **Regression anchor.** Once the runtime can replay the prompts
+   deterministically (or with a tight diff tolerance), these become the
+   acceptance fixtures for the Compo flagship CI.
+
+## Layout
+
+```
+examples/
+├── README.md                    # this file
+├── sample-input-1.txt           # a Chinese essay paragraph the parent uploads
+└── expected-guide-1.html        # the rendered guide.v1 HTML — open in a browser
+```
+
+The v0.1.0-alpha.0 release ships **placeholder** fixtures so external readers
+can preview the shape. Real fixtures (with an actual parent's photo + the
+real LLM-rendered guide) will replace these once a live parent-tutoring round
+closes.
+
+## How to add a new pair
+
+1. Pick the next index `N` (currently `1`).
+2. Save the parent's raw input to `sample-input-N.txt` (or `.pdf`, `.png` —
+   `tool.parse_input` accepts any of these in production; the txt form is the
+   easiest to diff in code review).
+3. Decide on the writing title (e.g. `难忘的一次劳动`).
+4. Run the 3-stage prompt chain manually against an OpenAI-Compat backend
+   to produce a `guide.v1` JSON.
+5. Render the JSON through `templates/guide.html.tmpl` (and optionally
+   `guide.pdf.tmpl`) to get `expected-guide-N.html` (and `.pdf`).
+6. Commit the new pair in its own commit with a one-line message:
+   `examples: add sample-input-N / expected-guide-N (<title>, <grade>)`.
+
+## Privacy
+
+Do **not** include any identifying information from real parent uploads
+without explicit written consent. Crop names / school / location stamps out
+of any image samples before committing. The MIT license on this repo grants
+unrestricted redistribution, which means committed examples are public
+forever.

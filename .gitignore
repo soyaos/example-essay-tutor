@@ -1,0 +1,27 @@
+# Build / release artifacts (SoyaPack archives, rendered guides)
+/dist/
+/artifacts/
+*.tar.zst
+*.pdf
+*.png.tmp
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Python / shell tooling we sometimes shell out to
+__pycache__/
+*.pyc
+venv/
+.venv/
+
+# Local secrets (never commit)
+.env
+.env.*
+!.env.example
+
+# Local renderer scratch
+/.scratch/

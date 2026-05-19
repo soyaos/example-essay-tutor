@@ -1,0 +1,346 @@
+{{/*
+  guide.html.tmpl — Compo 写作指引 HTML 模板 (Go html/template syntax).
+
+  Schema: guide.v1
+  Renderer: pkg/artifact.HTMLRenderer (auto-injects @media print CSS — do NOT
+  duplicate the print stylesheet in this file).
+
+  Visual system: Soya "Stone-Ground Warmth" (DESIGN.soya.md).
+  - Background: Soy Milk White  #FBFAF5
+  - Text:       Soy Sauce Black #2B2419
+  - Accent:     Soybean Gold    #E0A52C
+  - Pebble-soft radii: 14px controls, 20px cards, 28px featured panels.
+*/}}<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ .Title }} · Compo 写作指引</title>
+  <style>
+    :root {
+      --soy-milk:      #FBFAF5;
+      --tofu:          #FFFFFF;
+      --soy-sauce:     #2B2419;
+      --soybean-gold:  #E0A52C;
+      --soybean-skin:  #FBEFCF;
+      --roasted-soy:   #A6781C;
+      --edamame:       #7BA23F;
+      --adzuki:        #B5443C;
+      --warm-700:      #4A4133;
+      --warm-600:      #6B6051;
+      --warm-500:      #8C8170;
+      --warm-300:      #D4CBB5;
+      --warm-200:      #E7E0CC;
+      --warm-100:      #F1ECDC;
+      --warm-50:       #F8F5EC;
+      --border-subtle: rgba(75,65,51,0.08);
+      --border-medium: rgba(75,65,51,0.14);
+      --shadow-card:   rgba(75,55,30,0.06) 0 2px 6px;
+      --shadow-soft:   rgba(75,55,30,0.08) 0 4px 14px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--soy-milk);
+      color: var(--soy-sauce);
+      font-family: "Plus Jakarta Sans", "PingFang SC", "HarmonyOS Sans SC",
+                   system-ui, -apple-system, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    .page {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 48px 32px 64px;
+    }
+
+    .eyebrow {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.7px;
+      text-transform: uppercase;
+      color: var(--roasted-soy);
+      margin-bottom: 12px;
+    }
+
+    h1.title {
+      font-size: 36px;
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.54px;
+      margin: 0 0 24px;
+    }
+
+    .opening {
+      background: var(--tofu);
+      border: 1px solid var(--border-subtle);
+      border-radius: 20px;
+      padding: 24px 28px;
+      box-shadow: var(--shadow-card);
+      margin-bottom: 40px;
+    }
+    .opening h2 {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.7px;
+      text-transform: uppercase;
+      color: var(--roasted-soy);
+      margin: 0 0 12px;
+    }
+    .opening p {
+      margin: 0;
+      font-size: 17px;
+      line-height: 1.65;
+      color: var(--warm-700);
+    }
+
+    .section-label {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.7px;
+      text-transform: uppercase;
+      color: var(--roasted-soy);
+      margin: 0 0 16px;
+    }
+
+    /* Three writing-point cards ------------------------------------------- */
+    .points {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      margin-bottom: 40px;
+      counter-reset: point;
+    }
+    @media (min-width: 720px) {
+      .points { grid-template-columns: 1fr 1fr 1fr; }
+    }
+    .point.card {
+      background: var(--tofu);
+      border: 1px solid var(--border-subtle);
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: var(--shadow-card);
+      position: relative;
+      counter-increment: point;
+    }
+    .point.card::after {
+      content: counter(point, decimal-leading-zero);
+      position: absolute;
+      top: 18px;
+      right: 22px;
+      font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      color: var(--soybean-gold);
+    }
+    .point h3 {
+      font-size: 20px;
+      font-weight: 600;
+      line-height: 1.35;
+      letter-spacing: -0.2px;
+      margin: 0 0 12px;
+      color: var(--soy-sauce);
+    }
+    .point p {
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--warm-600);
+    }
+
+    /* Two-column 好词 / 好句 ------------------------------------------- */
+    .vocab-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+    @media (min-width: 720px) {
+      .vocab-grid { grid-template-columns: 1fr 1fr; }
+    }
+    .vocab-col.card {
+      background: var(--tofu);
+      border: 1px solid var(--border-subtle);
+      border-radius: 20px;
+      padding: 24px 28px;
+      box-shadow: var(--shadow-card);
+    }
+    .vocab-col h2 {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.7px;
+      text-transform: uppercase;
+      color: var(--roasted-soy);
+      margin: 0 0 16px;
+    }
+    .vocab-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .vocab-list li {
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border-subtle);
+      font-size: 15px;
+      line-height: 1.55;
+      color: var(--warm-700);
+    }
+    .vocab-list li:last-child { border-bottom: none; }
+    .vocab-list .word {
+      font-weight: 600;
+      color: var(--soy-sauce);
+      margin-right: 8px;
+    }
+    .vocab-list .meaning,
+    .vocab-list .why {
+      color: var(--warm-600);
+      font-size: 14px;
+    }
+    .vocab-list .phrase {
+      display: block;
+      color: var(--soy-sauce);
+      margin-bottom: 4px;
+    }
+
+    /* 避坑提示 --------------------------------------------------------- */
+    .pitfalls {
+      background: var(--soybean-skin);
+      border: 1px solid var(--border-medium);
+      border-radius: 20px;
+      padding: 24px 28px;
+      margin-bottom: 40px;
+    }
+    .pitfalls h2 {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.7px;
+      text-transform: uppercase;
+      color: var(--roasted-soy);
+      margin: 0 0 16px;
+    }
+    .pitfalls ol {
+      margin: 0;
+      padding-left: 0;
+      counter-reset: pitfall;
+      list-style: none;
+    }
+    .pitfalls li {
+      counter-increment: pitfall;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border-subtle);
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--warm-700);
+      position: relative;
+      padding-left: 36px;
+    }
+    .pitfalls li:last-child { border-bottom: none; }
+    .pitfalls li::before {
+      content: counter(pitfall);
+      position: absolute;
+      left: 0;
+      top: 12px;
+      width: 24px;
+      height: 24px;
+      border-radius: 9999px;
+      background: var(--soybean-gold);
+      color: var(--soy-sauce);
+      font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 12px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .pitfalls .pitfall-title {
+      font-weight: 600;
+      color: var(--soy-sauce);
+      margin-right: 8px;
+    }
+
+    /* 范例段落 --------------------------------------------------------- */
+    .sample.card {
+      background: var(--tofu);
+      border: 1px solid var(--border-subtle);
+      border-left: 4px solid var(--soybean-gold);
+      border-radius: 20px;
+      padding: 24px 28px;
+      box-shadow: var(--shadow-card);
+    }
+    .sample h2 {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.7px;
+      text-transform: uppercase;
+      color: var(--roasted-soy);
+      margin: 0 0 12px;
+    }
+    .sample p {
+      margin: 0;
+      font-size: 16px;
+      line-height: 1.75;
+      color: var(--warm-700);
+      text-indent: 2em;
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <div class="eyebrow">Compo · 小学作文写作指引</div>
+    <h1 class="title">{{ .Title }}</h1>
+
+    <section class="opening">
+      <h2>开篇方向</h2>
+      <p>{{ .OpeningDirection }}</p>
+    </section>
+
+    <h2 class="section-label">三个写作要点</h2>
+    <section class="points">
+      {{ range .WritingPoints }}
+      <article class="point card">
+        <h3>{{ .TitleZH }}</h3>
+        <p>{{ .BodyZH }}</p>
+      </article>
+      {{ end }}
+    </section>
+
+    <div class="vocab-grid">
+      <section class="vocab-col card">
+        <h2>好词 · 8 个</h2>
+        <ul class="vocab-list">
+          {{ range .Vocabulary }}
+          <li><span class="word">{{ .Word }}</span><span class="meaning">{{ .MeaningZH }}</span></li>
+          {{ end }}
+        </ul>
+      </section>
+      <section class="vocab-col card">
+        <h2>好句 · 5 句</h2>
+        <ul class="vocab-list">
+          {{ range .GoodPhrases }}
+          <li><span class="phrase">{{ .Phrase }}</span><span class="why">{{ .WhyZH }}</span></li>
+          {{ end }}
+        </ul>
+      </section>
+    </div>
+
+    <section class="pitfalls">
+      <h2>要避免的 3 个坑</h2>
+      <ol>
+        {{ range .Pitfalls }}
+        <li><span class="pitfall-title">{{ .TitleZH }}</span>{{ .FixZH }}</li>
+        {{ end }}
+      </ol>
+    </section>
+
+    <section class="sample card">
+      <h2>范例段落 · 仅供模仿，不要照抄</h2>
+      <p>{{ .SampleParagraph }}</p>
+    </section>
+  </main>
+</body>
+</html>

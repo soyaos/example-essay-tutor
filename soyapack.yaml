@@ -1,0 +1,59 @@
+spec_version: soyapack.v0
+kind: Agent
+name: essay-tutor
+version: 0.1.0-alpha.0
+description: |
+  Compo — turns a parent's photo / scan / text of an essay sample plus a writing
+  title into a printable PDF/HTML writing guide for grade-school students.
+authors:
+  - name: SoyaOS Contributors
+    email: hello@soyaos.ai
+license: MIT
+homepage: https://github.com/soyaos/example-essay-tutor
+runtime:
+  compat: ">=0.1.0 <0.2.0"
+determinism: read-only
+affinity: any
+
+entry: prompts/analyze_sample.md
+
+expose:
+  openai_compat: both
+  virtual_model_id: soya:compo
+
+inputs:
+  - name: title
+    type: string
+    optional: true
+  - name: sample
+    type: array
+    optional: true   # accepts uploaded image/PDF/text via tool.parse_input
+  - name: parent_hint
+    type: string
+    optional: true
+
+prompt:
+  scaffold: minimal-input-high-quality
+  tools: [tool.parse_input]
+
+artifacts:
+  - kind: html
+    schema: guide.v1
+  - kind: pdf
+    schema: guide.v1
+
+sandbox:
+  isolation: container
+  image: html-base@0.1.0
+  budget_seconds_max: 30
+  cold_start_target_ms: 3000
+  capabilities:
+    network_out:
+      - host: api.openai.com
+        port: 443
+        proto: https
+    fs_read:
+      - /workdir
+    fs_write:
+      - /workdir/out
+    determinism_tier: read-only
