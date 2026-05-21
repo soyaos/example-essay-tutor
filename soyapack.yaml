@@ -15,8 +15,6 @@ runtime:
 determinism: read-only
 affinity: any
 
-entry: prompts/analyze_sample.md
-
 expose:
   openai_compat: both
   virtual_model_id: soya:compo
@@ -32,9 +30,22 @@ inputs:
     type: string
     optional: true
 
+# 3-step prompt chain (APP-550 Phase B):
+#
+#   analyze  → 解析范文（题材 / 年级 / 亮点）
+#   generate → 生成完整写作指南（结构 / 范例 / 提示）
+#   refine   → 按年级口吻润色 + 体例对齐
+#
+# Each stage's full response is fed as the user input of the next; only
+# the final stage's stream is returned to the caller. This is what
+# lifts the output quality above the single-prompt baseline.
 prompt:
   scaffold: minimal-input-high-quality
   tools: [tool.parse_input]
+  steps:
+    - { id: analyze,  prompt: prompts/analyze_sample.md }
+    - { id: generate, prompt: prompts/generate_guide.md }
+    - { id: refine,   prompt: prompts/refine_for_grade.md }
 
 artifacts:
   - kind: html
