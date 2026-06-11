@@ -1,0 +1,426 @@
+<style>
+@media print {
+  img, table, pre, code, figure, .card, blockquote {
+    break-inside: avoid;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    break-after: avoid;
+  }
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
+</style>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <title>外婆的灶台 · Compo 写作指引（打印版）</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 18mm;
+    }
+
+    :root {
+      --soy-milk:      #FBFAF5;
+      --tofu:          #FFFFFF;
+      --soy-sauce:     #2B2419;
+      --soybean-gold:  #E0A52C;
+      --soybean-skin:  #FBEFCF;
+      --roasted-soy:   #A6781C;
+      --edamame:       #7BA23F;
+      --warm-700:      #4A4133;
+      --warm-600:      #6B6051;
+      --warm-500:      #8C8170;
+      --warm-300:      #D4CBB5;
+      --warm-200:      #E7E0CC;
+      --warm-100:      #F1ECDC;
+      --warm-50:       #F8F5EC;
+      --border-subtle: rgba(75,65,51,0.10);
+      --border-medium: rgba(75,65,51,0.16);
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--soy-milk);
+      color: var(--soy-sauce);
+      font-family: "Plus Jakarta Sans", "PingFang SC", "HarmonyOS Sans SC",
+                   system-ui, -apple-system, sans-serif;
+      font-size: 15px;
+      line-height: 1.65;
+    }
+
+    .sheet {
+      width: 100%;
+    }
+
+    .eyebrow {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      color: var(--roasted-soy);
+      margin-bottom: 8px;
+    }
+
+    h1.title {
+      font-size: 30px;
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -0.4px;
+      margin: 0 0 20px;
+    }
+
+    .opening {
+      background: var(--tofu);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 14px 18px;
+      margin-bottom: 18px;
+    }
+    .opening h2 {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      color: var(--roasted-soy);
+      margin: 0 0 6px;
+    }
+    .opening p {
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.65;
+      color: var(--warm-700);
+    }
+
+    .section-label {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      color: var(--roasted-soy);
+      margin: 0 0 10px;
+    }
+
+     
+    .points {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 18px;
+      counter-reset: point;
+    }
+    .point.card {
+      background: var(--tofu);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 14px;
+      position: relative;
+      break-inside: avoid;
+      counter-increment: point;
+    }
+    .point.card::after {
+      content: counter(point, decimal-leading-zero);
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.4px;
+      color: var(--soybean-gold);
+    }
+    .point h3 {
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 1.35;
+      letter-spacing: -0.2px;
+      margin: 0 0 8px;
+    }
+    .point p {
+      margin: 0;
+      font-size: 13.5px;
+      line-height: 1.55;
+      color: var(--warm-600);
+    }
+
+     
+    .vocab-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+    .vocab-col.card {
+      background: var(--tofu);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 14px 18px;
+      break-inside: avoid;
+    }
+    .vocab-col h2 {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      color: var(--roasted-soy);
+      margin: 0 0 10px;
+    }
+    .vocab-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .vocab-list li {
+      padding: 5px 0;
+      border-bottom: 1px solid var(--border-subtle);
+      font-size: 13.5px;
+      line-height: 1.55;
+      color: var(--warm-700);
+    }
+    .vocab-list li:last-child { border-bottom: none; }
+    .vocab-list .word {
+      font-weight: 600;
+      color: var(--soy-sauce);
+      margin-right: 6px;
+    }
+    .vocab-list .meaning,
+    .vocab-list .why {
+      color: var(--warm-600);
+      font-size: 12.5px;
+    }
+    .vocab-list .phrase {
+      display: block;
+      color: var(--soy-sauce);
+      margin-bottom: 2px;
+    }
+
+     
+    .pitfalls {
+      background: var(--soybean-skin);
+      border: 1px solid var(--border-medium);
+      border-radius: 14px;
+      padding: 14px 18px;
+      margin-bottom: 18px;
+    }
+    .pitfalls h2 {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      color: var(--roasted-soy);
+      margin: 0 0 10px;
+    }
+    .pitfalls ol {
+      margin: 0;
+      padding-left: 0;
+      counter-reset: pitfall;
+      list-style: none;
+    }
+    .pitfalls li {
+      counter-increment: pitfall;
+      padding: 6px 0 6px 28px;
+      border-bottom: 1px solid var(--border-subtle);
+      font-size: 13.5px;
+      line-height: 1.55;
+      color: var(--warm-700);
+      position: relative;
+    }
+    .pitfalls li:last-child { border-bottom: none; }
+    .pitfalls li::before {
+      content: counter(pitfall);
+      position: absolute;
+      left: 0;
+      top: 6px;
+      width: 20px;
+      height: 20px;
+      border-radius: 9999px;
+      background: var(--soybean-gold);
+      color: var(--soy-sauce);
+      font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 11px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .pitfalls .pitfall-title {
+      font-weight: 600;
+      color: var(--soy-sauce);
+      margin-right: 6px;
+    }
+
+     
+    .sample.card {
+      background: var(--tofu);
+      border: 1px solid var(--border-subtle);
+      border-left: 3px solid var(--soybean-gold);
+      border-radius: 14px;
+      padding: 14px 18px;
+      margin-bottom: 24px;
+      break-inside: avoid;
+    }
+    .sample h2 {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      color: var(--roasted-soy);
+      margin: 0 0 8px;
+    }
+    .sample p {
+      margin: 0;
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--warm-700);
+      text-indent: 2em;
+    }
+
+     
+    .signoff {
+      margin-top: 24px;
+      padding-top: 16px;
+      border-top: 1px dashed var(--border-medium);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      break-inside: avoid;
+    }
+    .signoff .row {
+      display: flex;
+      align-items: flex-end;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--warm-600);
+    }
+    .signoff .row .label {
+      font-weight: 600;
+      color: var(--soy-sauce);
+      white-space: nowrap;
+    }
+    .signoff .row .line {
+      flex: 1;
+      border-bottom: 1px solid var(--soy-sauce);
+      min-height: 22px;
+    }
+
+    .footer-note {
+      margin-top: 14px;
+      font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 10px;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+      color: var(--warm-500);
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <section class="sheet">
+    <div class="eyebrow">Compo · 小学作文写作指引（打印版）</div>
+    <h1 class="title">外婆的灶台</h1>
+
+    <section class="opening">
+      <h2>开篇方向</h2>
+      <p>从一缕气味或一团火光切入：揭开木甑子时氤氲腾起的白汽、灶膛里一明一暗的火光、醪糟馥郁的甜香。先让读者闻到、看到，再交代这是外婆的灶台，最后才点出&#39;我最想念的地方&#39;——气味是记忆最快的入口。</p>
+    </section>
+
+    <h2 class="section-label">三个写作要点</h2>
+    <section class="points">
+      
+      <article class="point card">
+        <h3>名物落地</h3>
+        <p>写老灶台不要只说&#39;有很多旧东西&#39;，要点出具体名物：木甑子、笸箩、簸箕、糍粑。名物越具体，画面越有质感，读者越相信你真的在那里生活过。</p>
+      </article>
+      
+      <article class="point card">
+        <h3>气味钩子</h3>
+        <p>嗅觉是记忆的钩子。先写醪糟的甜香、柴火的烟气，再带出外婆的动作和身影。气味在前、人物在后，怀念就有了来路。</p>
+      </article>
+      
+      <article class="point card">
+        <h3>今昔对照</h3>
+        <p>结尾把城里亮堂的厨房和黢黑的老灶台放在一起，不说&#39;我怀念外婆&#39;，只说&#39;再没有闻到过那种味道&#39;。对照一摆，情感自己浮出来。</p>
+      </article>
+      
+    </section>
+
+    <div class="vocab-grid">
+      <section class="vocab-col card">
+        <h2>好词 · 8 个</h2>
+        <ul class="vocab-list">
+          
+          <li><span class="word">氤氲</span><span class="meaning">烟气、水汽满屋子缭绕的样子</span></li>
+          
+          <li><span class="word">馥郁</span><span class="meaning">香气很浓很厚</span></li>
+          
+          <li><span class="word">皴裂</span><span class="meaning">皮肤被干冷天气吹出小裂口</span></li>
+          
+          <li><span class="word">摩挲</span><span class="meaning">用手轻轻地、来回地抚摸</span></li>
+          
+          <li><span class="word">黢黑</span><span class="meaning">黑得发亮，常写被烟火熏黑的东西</span></li>
+          
+          <li><span class="word">佝偻</span><span class="meaning">背弯弯的，多写上了年纪的身影</span></li>
+          
+          <li><span class="word">煨</span><span class="meaning">用小火或灶灰的余热慢慢把食物焖熟</span></li>
+          
+          <li><span class="word">噼啪</span><span class="meaning">柴火烧裂时发出的声音</span></li>
+          
+        </ul>
+      </section>
+      <section class="vocab-col card">
+        <h2>好句 · 5 句</h2>
+        <ul class="vocab-list">
+          
+          <li><span class="phrase">氤氲的白汽腾起来，混着醪糟的甜香，馥郁得让人咽口水。</span><span class="why">香气和白汽叠在一起，气味有了形状。</span></li>
+          
+          <li><span class="phrase">灶膛里的火光一明一暗，把她佝偻的影子投在墙上。</span><span class="why">用光影写人，比直说&#39;外婆老了&#39;更打动人。</span></li>
+          
+          <li><span class="phrase">她用皴裂的手摩挲我的头顶，又往灶膛里添了一块柴。</span><span class="why">两个小动作连着写，疼爱不用说出口。</span></li>
+          
+          <li><span class="phrase">噼啪一声，火星跳起来，像谁撒了一把碎金子。</span><span class="why">声音加比喻，火星又响又亮。</span></li>
+          
+          <li><span class="phrase">簸箕里晾着昨夜煨好的芋头，皮还带着灶灰。</span><span class="why">&#39;还带着灶灰&#39;这个细节，证明你真的看见过。</span></li>
+          
+        </ul>
+      </section>
+    </div>
+
+    <section class="pitfalls">
+      <h2>要避免的 3 个坑</h2>
+      <ol>
+        
+        <li><span class="pitfall-title">空喊怀念</span>不要整段写&#39;我多么想念外婆&#39;。把怀念藏进名物和气味里，让读者闻到那股甜香时自己想起某个人。</li>
+        
+        <li><span class="pitfall-title">名物堆砌</span>生僻名物（甑、笸箩、醪糟）点到三四件即可，每件都要带动作或气味，不要列清单。</li>
+        
+        <li><span class="pitfall-title">今昔断裂</span>写完童年灶台不要戛然而止。结尾用一句话把&#39;现在的我&#39;接回来，今昔对照才完整。</li>
+        
+      </ol>
+    </section>
+
+    <section class="sample card">
+      <h2>范例段落 · 仅供模仿，不要照抄</h2>
+      <p>天蒙蒙亮，外婆揭开木甑子的盖，氤氲的白汽一下子腾起来，裹着醪糟的甜香，馥郁得我在院子里就咽口水。她从笸箩里抓一把糯米粉，掌心搓两下，一个糍粑就有了形状。我凑过去看，她用皴裂的手摩挲我的头顶，转身又往黢黑的灶膛里添了块柴。噼啪一声，火星跳起来，像谁撒了一把碎金子。许多年后我见过很多亮堂的厨房，却再没闻到那种味道——那是柴火、米香和外婆的手温，一起慢慢煨出来的。</p>
+    </section>
+
+    <section class="signoff">
+      <div class="row">
+        <span class="label">家长签名</span>
+        <span class="line"></span>
+      </div>
+      <div class="row">
+        <span class="label">辅导日期</span>
+        <span class="line"></span>
+      </div>
+    </section>
+
+    <div class="footer-note">Generated by Compo · SoyaPack v0 · guide.v1</div>
+  </section>
+</body>
+</html>

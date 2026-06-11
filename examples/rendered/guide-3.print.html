@@ -1,0 +1,426 @@
+<style>
+@media print {
+  img, table, pre, code, figure, .card, blockquote {
+    break-inside: avoid;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    break-after: avoid;
+  }
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
+</style>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <title>我和 AI 下了一盘棋 · Compo 写作指引（打印版）</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 18mm;
+    }
+
+    :root {
+      --soy-milk:      #FBFAF5;
+      --tofu:          #FFFFFF;
+      --soy-sauce:     #2B2419;
+      --soybean-gold:  #E0A52C;
+      --soybean-skin:  #FBEFCF;
+      --roasted-soy:   #A6781C;
+      --edamame:       #7BA23F;
+      --warm-700:      #4A4133;
+      --warm-600:      #6B6051;
+      --warm-500:      #8C8170;
+      --warm-300:      #D4CBB5;
+      --warm-200:      #E7E0CC;
+      --warm-100:      #F1ECDC;
+      --warm-50:       #F8F5EC;
+      --border-subtle: rgba(75,65,51,0.10);
+      --border-medium: rgba(75,65,51,0.16);
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--soy-milk);
+      color: var(--soy-sauce);
+      font-family: "Plus Jakarta Sans", "PingFang SC", "HarmonyOS Sans SC",
+                   system-ui, -apple-system, sans-serif;
+      font-size: 15px;
+      line-height: 1.65;
+    }
+
+    .sheet {
+      width: 100%;
+    }
+
+    .eyebrow {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      color: var(--roasted-soy);
+      margin-bottom: 8px;
+    }
+
+    h1.title {
+      font-size: 30px;
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -0.4px;
+      margin: 0 0 20px;
+    }
+
+    .opening {
+      background: var(--tofu);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 14px 18px;
+      margin-bottom: 18px;
+    }
+    .opening h2 {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      color: var(--roasted-soy);
+      margin: 0 0 6px;
+    }
+    .opening p {
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.65;
+      color: var(--warm-700);
+    }
+
+    .section-label {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      color: var(--roasted-soy);
+      margin: 0 0 10px;
+    }
+
+     
+    .points {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 18px;
+      counter-reset: point;
+    }
+    .point.card {
+      background: var(--tofu);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 14px;
+      position: relative;
+      break-inside: avoid;
+      counter-increment: point;
+    }
+    .point.card::after {
+      content: counter(point, decimal-leading-zero);
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.4px;
+      color: var(--soybean-gold);
+    }
+    .point h3 {
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 1.35;
+      letter-spacing: -0.2px;
+      margin: 0 0 8px;
+    }
+    .point p {
+      margin: 0;
+      font-size: 13.5px;
+      line-height: 1.55;
+      color: var(--warm-600);
+    }
+
+     
+    .vocab-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+    .vocab-col.card {
+      background: var(--tofu);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 14px 18px;
+      break-inside: avoid;
+    }
+    .vocab-col h2 {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      color: var(--roasted-soy);
+      margin: 0 0 10px;
+    }
+    .vocab-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .vocab-list li {
+      padding: 5px 0;
+      border-bottom: 1px solid var(--border-subtle);
+      font-size: 13.5px;
+      line-height: 1.55;
+      color: var(--warm-700);
+    }
+    .vocab-list li:last-child { border-bottom: none; }
+    .vocab-list .word {
+      font-weight: 600;
+      color: var(--soy-sauce);
+      margin-right: 6px;
+    }
+    .vocab-list .meaning,
+    .vocab-list .why {
+      color: var(--warm-600);
+      font-size: 12.5px;
+    }
+    .vocab-list .phrase {
+      display: block;
+      color: var(--soy-sauce);
+      margin-bottom: 2px;
+    }
+
+     
+    .pitfalls {
+      background: var(--soybean-skin);
+      border: 1px solid var(--border-medium);
+      border-radius: 14px;
+      padding: 14px 18px;
+      margin-bottom: 18px;
+    }
+    .pitfalls h2 {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      color: var(--roasted-soy);
+      margin: 0 0 10px;
+    }
+    .pitfalls ol {
+      margin: 0;
+      padding-left: 0;
+      counter-reset: pitfall;
+      list-style: none;
+    }
+    .pitfalls li {
+      counter-increment: pitfall;
+      padding: 6px 0 6px 28px;
+      border-bottom: 1px solid var(--border-subtle);
+      font-size: 13.5px;
+      line-height: 1.55;
+      color: var(--warm-700);
+      position: relative;
+    }
+    .pitfalls li:last-child { border-bottom: none; }
+    .pitfalls li::before {
+      content: counter(pitfall);
+      position: absolute;
+      left: 0;
+      top: 6px;
+      width: 20px;
+      height: 20px;
+      border-radius: 9999px;
+      background: var(--soybean-gold);
+      color: var(--soy-sauce);
+      font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 11px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .pitfalls .pitfall-title {
+      font-weight: 600;
+      color: var(--soy-sauce);
+      margin-right: 6px;
+    }
+
+     
+    .sample.card {
+      background: var(--tofu);
+      border: 1px solid var(--border-subtle);
+      border-left: 3px solid var(--soybean-gold);
+      border-radius: 14px;
+      padding: 14px 18px;
+      margin-bottom: 24px;
+      break-inside: avoid;
+    }
+    .sample h2 {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      color: var(--roasted-soy);
+      margin: 0 0 8px;
+    }
+    .sample p {
+      margin: 0;
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--warm-700);
+      text-indent: 2em;
+    }
+
+     
+    .signoff {
+      margin-top: 24px;
+      padding-top: 16px;
+      border-top: 1px dashed var(--border-medium);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      break-inside: avoid;
+    }
+    .signoff .row {
+      display: flex;
+      align-items: flex-end;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--warm-600);
+    }
+    .signoff .row .label {
+      font-weight: 600;
+      color: var(--soy-sauce);
+      white-space: nowrap;
+    }
+    .signoff .row .line {
+      flex: 1;
+      border-bottom: 1px solid var(--soy-sauce);
+      min-height: 22px;
+    }
+
+    .footer-note {
+      margin-top: 14px;
+      font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 10px;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+      color: var(--warm-500);
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <section class="sheet">
+    <div class="eyebrow">Compo · 小学作文写作指引（打印版）</div>
+    <h1 class="title">我和 AI 下了一盘棋</h1>
+
+    <section class="opening">
+      <h2>开篇方向</h2>
+      <p>用一句对话直接起局：&#39;今天让你见识一下 AI 的厉害。&#39;对话比交代时间地点更快把读者拉进场景。接着用 19×19 的棋盘、361 个交叉点这样的精确数字定好&#39;赛场&#39;，再让第一手棋落下去——开篇就有了节奏。</p>
+    </section>
+
+    <h2 class="section-label">三个写作要点</h2>
+    <section class="points">
+      
+      <article class="point card">
+        <h3>对话开局</h3>
+        <p>用人物的一句话开篇，比&#39;星期天上午&#39;更有冲击力。对话要短、要有挑衅或悬念，比如&#39;今天让你见识一下 AI 的厉害&#39;，读者会想知道接下来谁赢。</p>
+      </article>
+      
+      <article class="point card">
+        <h3>数字写实</h3>
+        <p>写对局、比赛，要敢用真实数字：0.1 秒应一手、胜率 3%、输 25.5 目。精确的数字比&#39;它下得飞快&#39;&#39;我输得很惨&#39;更有现场感，也更可信。</p>
+      </article>
+      
+      <article class="point card">
+        <h3>先抑后扬</h3>
+        <p>结尾不写&#39;我下次一定赢它&#39;，而写&#39;我数得清自己每一步的道理，而它只是赢了棋&#39;。承认输、再翻出赢的东西，反转比胜利更动人。</p>
+      </article>
+      
+    </section>
+
+    <div class="vocab-grid">
+      <section class="vocab-col card">
+        <h2>好词 · 8 个</h2>
+        <ul class="vocab-list">
+          
+          <li><span class="word">执黑</span><span class="meaning">下围棋时拿黑棋、先走的一方</span></li>
+          
+          <li><span class="word">星位</span><span class="meaning">棋盘上标着小圆点的重要位置</span></li>
+          
+          <li><span class="word">妙手</span><span class="meaning">下得特别漂亮的一步棋</span></li>
+          
+          <li><span class="word">中盘</span><span class="meaning">一盘棋的中间阶段，打得最凶</span></li>
+          
+          <li><span class="word">终盘</span><span class="meaning">一盘棋的最后阶段，开始算输赢</span></li>
+          
+          <li><span class="word">胜率</span><span class="meaning">赢棋的可能性有多大，用百分数表示</span></li>
+          
+          <li><span class="word">愣住</span><span class="meaning">被吓了一跳，一下子呆住</span></li>
+          
+          <li><span class="word">慢悠悠</span><span class="meaning">不慌不忙、慢吞吞的样子</span></li>
+          
+        </ul>
+      </section>
+      <section class="vocab-col card">
+        <h2>好句 · 5 句</h2>
+        <ul class="vocab-list">
+          
+          <li><span class="phrase">它几乎 0.1 秒就应了一手——快得像早就等在那里。</span><span class="why">数字加比喻，&#39;快&#39;就有了压迫感。</span></li>
+          
+          <li><span class="phrase">屏幕上跳出一行小字：&#39;胜率 3%&#39;。</span><span class="why">用屏幕上的小字代替心理活动，冷冰冰反而扎心。</span></li>
+          
+          <li><span class="phrase">难道我的妙手……是个大坏棋？！</span><span class="why">省略号加问叹号，从得意到发懵只用一句。</span></li>
+          
+          <li><span class="phrase">爸爸翻着《围棋入门》，慢悠悠地说：&#39;输给它的弟弟，不丢人。&#39;</span><span class="why">一个动作一句话，安慰里带着幽默。</span></li>
+          
+          <li><span class="phrase">我数得清自己每一步的道理，而它，只是赢了棋。</span><span class="why">一个逗号的停顿，把反转顶到最高处。</span></li>
+          
+        </ul>
+      </section>
+    </div>
+
+    <section class="pitfalls">
+      <h2>要避免的 3 个坑</h2>
+      <ol>
+        
+        <li><span class="pitfall-title">术语轰炸</span>围棋术语点到为止（执黑、星位、目），每个都要让不会下棋的读者猜得到意思，不要写成棋谱讲解。</li>
+        
+        <li><span class="pitfall-title">标点失控</span>&#39;？！&#39;&#39;……&#39;这类标点一篇文章用一两次是亮点，连着用就成了噪音。情绪主要靠句子本身。</li>
+        
+        <li><span class="pitfall-title">硬贴道理</span>结尾不要补一句&#39;这件事让我明白了人类的智慧&#39;。把道理藏在&#39;我数得清每一步&#39;这样的具体话里。</li>
+        
+      </ol>
+    </section>
+
+    <section class="sample card">
+      <h2>范例段落 · 仅供模仿，不要照抄</h2>
+      <p>第一手我落在星位，AI 几乎 0.1 秒就应了一手——快得像早就等在那里。中盘我自以为下出一步&#39;妙手&#39;，正得意地哼歌，屏幕上跳出一行小字：&#39;胜率 3%&#39;。我愣住了：难道我的妙手……是个大坏棋？！终盘数子，我输了 25.5 目。可走出房间时我一点也不难过——这一盘，我数得清自己每一步的道理；而它，只是赢了棋。</p>
+    </section>
+
+    <section class="signoff">
+      <div class="row">
+        <span class="label">家长签名</span>
+        <span class="line"></span>
+      </div>
+      <div class="row">
+        <span class="label">辅导日期</span>
+        <span class="line"></span>
+      </div>
+    </section>
+
+    <div class="footer-note">Generated by Compo · SoyaPack v0 · guide.v1</div>
+  </section>
+</body>
+</html>

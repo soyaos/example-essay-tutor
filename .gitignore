@@ -5,6 +5,10 @@
 *.pdf
 *.png.tmp
 
+# …except the committed font-rendering evidence (APP-1058): the E2E suite
+# regenerates these, and they are part of the repo's acceptance record.
+!/examples/rendered/*.pdf
+
 # Editor / IDE
 .vscode/
 .idea/
