@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/logo.png" alt="SoyaOS" width="120" height="120" />
+</p>
+
 # example-essay-tutor — Compo (DD-008 flagship reference)
 
 > *A parent uploads a photo of a good essay and a writing title. Thirty seconds
