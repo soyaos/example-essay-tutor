@@ -2,9 +2,9 @@
 // (example-essay-tutor). It exercises the real production path:
 //
 //	OpenAI-Compat gateway (pkg/openaicompat)
-//	  → kernel pack-agent 3-step prompt chain (pkg/kernel)
+//	  → kernel pack-agent single-prompt fast path (pkg/kernel)
 //	    → OpenAI-compat upstream (mocked in-process by default; see
-//	      TestE2E_PromptChain_LiveUpstream for the opt-in live mode)
+//	      TestE2E_FastPrompt_LiveUpstream for the opt-in live mode)
 //	  → guide.v1 JSON
 //	  → HTML / PDF artifact render (pkg/artifact, headless Chrome for PDF)
 //	  → Chinese glyph coverage scan (canvas tofu detection in Chrome)

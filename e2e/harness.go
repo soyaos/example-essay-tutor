@@ -92,10 +92,11 @@ func mustRead(t *testing.T, path string) string {
 
 // upstreamCall records one /chat/completions request the chain made.
 type upstreamCall struct {
-	Model  string
-	Stream bool
-	System string
-	User   string
+	Model          string
+	Stream         bool
+	ResponseFormat string
+	System         string
+	User           string
 }
 
 // mockUpstream is an in-process OpenAI-compat /chat/completions SSE server
@@ -130,8 +131,11 @@ func (m *mockUpstream) handle(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	var req struct {
-		Model    string `json:"model"`
-		Stream   bool   `json:"stream"`
+		Model          string `json:"model"`
+		Stream         bool   `json:"stream"`
+		ResponseFormat struct {
+			Type string `json:"type"`
+		} `json:"response_format"`
 		Messages []struct {
 			Role    string `json:"role"`
 			Content string `json:"content"`
@@ -152,11 +156,25 @@ func (m *mockUpstream) handle(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	m.mu.Lock()
-	m.calls = append(m.calls, upstreamCall{Model: req.Model, Stream: req.Stream, System: system, User: user})
+	m.calls = append(m.calls, upstreamCall{
+		Model:          req.Model,
+		Stream:         req.Stream,
+		ResponseFormat: req.ResponseFormat.Type,
+		System:         system,
+		User:           user,
+	})
 	m.mu.Unlock()
 
 	var reply string
 	switch {
+	case strings.Contains(system, "# fast_guide"):
+		var err error
+		reply, err = ExtractFencedJSON(m.refined)
+		if err != nil {
+			m.noteFailure("invalid refined fixture: " + err.Error())
+			http.Error(w, "invalid fixture", http.StatusInternalServerError)
+			return
+		}
 	case strings.Contains(system, "# analyze_sample"):
 		reply = m.analyze
 	case strings.Contains(system, "# generate_guide"):
@@ -318,7 +336,8 @@ func loadValidManifest(t *testing.T) *soyapack.Manifest {
 func (g gateway) chatCompletion(t *testing.T, userContent string) string {
 	t.Helper()
 	body, _ := json.Marshal(map[string]any{
-		"model": "soya:compo",
+		"model":           "soya:compo",
+		"response_format": map[string]string{"type": "json_object"},
 		"messages": []map[string]string{
 			{"role": "user", "content": userContent},
 		},

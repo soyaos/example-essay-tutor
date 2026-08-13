@@ -4,6 +4,12 @@
 
 # example-essay-tutor — Compo (DD-008 flagship reference)
 
+> [!WARNING]
+> **This project is under active development and has not been formally
+> released. APIs, manifests, prompts, and output schemas may introduce
+> breaking changes at any time. Features are not yet stable; do not use this
+> alpha as a production dependency.**
+
 > *A parent uploads a photo of a good essay and a writing title. Thirty seconds
 > later, a printable A4 writing guide comes out the other side.*
 
@@ -25,18 +31,17 @@ This repo is **a SoyaPack, not a Go program**. It is meant to be:
 
 Compo is a writing tutor for elementary-school parents. The parent supplies
 either a photograph / scan / paste of a good essay sample, plus the writing
-title their child has been assigned. Compo:
+title their child has been assigned. Compo's parent-trial profile:
 
-1. Reads the sample with `tool.parse_input` and infers 体裁 (genre), 年级
-   (grade level), 文采特征 (stylistic features) and a few structural
-   highlights.
-2. Generates a `guide.v1` JSON document for the supplied title, covering an
-   opening direction, three concrete writing points, eight 好词, five 好句,
-   three 要避免的坑, and a model sample paragraph.
-3. Refines the guide to the inferred grade so a third-grader's guide doesn't
-   read like a tenth-grader's.
-4. Renders the result to both HTML (web preview) and PDF (printable A4,
+1. Reads the title and sample with one fast prompt, infers a suitable grade,
+   and returns bare, machine-parseable `guide.v1` JSON.
+2. Enforces three writing points, eight 好词, five 好句, three 要避免的坑,
+   non-empty fields, and a grade-appropriate model paragraph.
+3. Renders the validated JSON to HTML (web preview) and PDF (printable A4,
    complete with a 家长签名 line and a 辅导日期 row).
+
+The original analyze / generate / refine prompts remain in `prompts/` as
+quality-mode reference material, but they are not on the 30-second trial path.
 
 The whole flow is meant to fit inside a single 30-second sandbox budget — the
 `budget_seconds_max: 30` line in `soyapack.yaml` is the contract.
@@ -59,15 +64,25 @@ curl http://localhost:6473/v1/chat/completions \
   -H "Content-Type: application/json" \
   -d '{
         "model": "soya:compo",
+        "response_format": {"type":"json_object"},
         "messages": [
           {"role":"user","content":"标题：难忘的一次劳动"}
         ]
       }'
 ```
 
-The `soyaos` CLI is still under heavy construction; some of the above commands
-will error until the corresponding milestones land (see the parent SoyaOS
-roadmap for `soyaos agent build` / `deploy` status).
+The chat response is the validated JSON source for the HTML/PDF renderers. To
+run the full lifecycle with a real model, enforce the 30-second limit, and
+write all three artifacts into the ignored `trial-output/` directory:
+
+```bash
+cd ../soyaos
+./scripts/verify-compo-e2e.sh
+```
+
+This command reads the core repo's private `.env`; it sets the optional
+OpenAI-compatible `enable_thinking=false` vendor extension for the fast trial
+profile. Never commit that `.env` or a provider key.
 
 ## Repository layout
 
@@ -79,9 +94,10 @@ example-essay-tutor/
 ├── CHANGELOG.md           # Keep a Changelog v1.1.
 ├── CODE_OF_CONDUCT.md     # Contributor Covenant v2.1.
 ├── prompts/
-│   ├── analyze_sample.md  # Stage 1 — sample → YAML report.
-│   ├── generate_guide.md  # Stage 2 — YAML + title → guide.v1 JSON.
-│   └── refine_for_grade.md# Stage 3 — JSON → grade-tuned JSON.
+│   ├── fast_guide.md      # Parent trial — one call → bare guide.v1 JSON.
+│   ├── analyze_sample.md  # Quality-mode reference: sample analysis.
+│   ├── generate_guide.md  # Quality-mode reference: guide generation.
+│   └── refine_for_grade.md# Quality-mode reference: grade refinement.
 ├── templates/
 │   ├── guide.html.tmpl    # Go html/template — web preview.
 │   └── guide.pdf.tmpl     # Go html/template — A4 print variant.
@@ -137,18 +153,18 @@ See [`DESIGN.soya.md`](https://github.com/soyaos/specs) for the full system.
 
 ## Status
 
-This is **v0.1.0-alpha.0** — the scaffold milestone. The prompts and templates
-are deliberately complete enough to render a believable guide; the sample
-inputs and expected outputs are placeholders until the first real
-parent-tutoring round closes the loop.
+This is **v0.1.0-alpha.0**, an unstable pre-release. The technical parent-trial
+path is executable end to end; real parent feedback is still required before
+the workflow or `guide.v1` shape can be treated as stable.
 
 | Milestone        | Status |
 |------------------|--------|
 | Manifest + scaffold (APP-465) | ✓ this release |
 | Prompts + templates (APP-467) | ✓ this release |
-| Real sample + expected output | — pending live parent run |
-| `soyaos agent build` integration | — pending CLI milestone |
-| Production deploy via Solo     | — pending |
+| One-call `guide.v1` fast path | ✓ technical trial profile |
+| HTML/PDF + ≤30s live gate | ✓ automated acceptance |
+| Real parent feedback | — pending 3 sessions |
+| Production release | — not released |
 
 ## License
 

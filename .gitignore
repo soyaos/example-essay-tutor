@@ -1,6 +1,7 @@
 # Build / release artifacts (SoyaPack archives, rendered guides)
 /dist/
 /artifacts/
+/trial-output/
 *.tar.zst
 *.pdf
 *.png.tmp

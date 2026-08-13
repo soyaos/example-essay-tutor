@@ -4,9 +4,9 @@ This suite exercises the **real production path** for `soya:compo`:
 
 ```
 POST /v1/chat/completions (pkg/openaicompat gateway, sk-soya auth)
-  → kernel pack-agent 3-step prompt chain (pkg/kernel, registered from soyapack.yaml)
+  → kernel pack-agent single-prompt fast path (pkg/kernel, registered from soyapack.yaml)
     → OpenAI-compat upstream (in-process mock by default; SSE streaming)
-  → final guide.v1 JSON
+  → bare, validated guide.v1 JSON
   → pkg/artifact HTMLRenderer + PDFRenderer (headless Chrome, A4)
   → Chinese glyph coverage scan (canvas tofu detection in Chrome)
 ```
@@ -37,12 +37,12 @@ Prerequisites:
 
 | Test | Asserts |
 | --- | --- |
-| `TestManifest_LoadsAndValidates` | `soyapack.yaml` passes the authoritative `pkg/soyapack.Validate`; 3-step chain ids `analyze`/`generate`/`refine` |
-| `TestE2E_PromptChain` | per sample: exactly 3 upstream calls in stage order; stage N+1 user payload == stage N full response (verbatim); resolved model id (virtual id must not leak upstream); all stages stream; final output == refine stage output; guide.v1 hard shape (3 points / 8 词 / 5 句 / 3 坑, no empty fields) |
+| `TestManifest_LoadsAndValidates` | `soyapack.yaml` passes the authoritative `pkg/soyapack.Validate`; entry is `prompts/fast_guide.md`; no prompt chain is active |
+| `TestE2E_FastPrompt` | per sample: exactly one streaming upstream call; resolved model id (virtual id must not leak upstream); bare JSON response; guide.v1 hard shape (3 points / 8 词 / 5 句 / 3 坑, no empty fields) |
 | `TestE2E_RenderArtifacts` | real HTML render (auto-injected `@media print`, PingFang SC stack, all font-critical strings present) and real PDF render (`%PDF-` magic, size floor, embedded **PingFang** subset + `FontFile` programs) |
 | `TestE2E_ChineseFontRendering_NoTofu` | per artifact (web + print variants): every unique (non-ASCII char, computed font) pair rasterised in Chrome; any glyph identical to the `.notdef` / zero-ink reference fails the test; full-page screenshots archived |
 | `TestTofuScanner_SelfCheck` | negative control: guaranteed-unmapped U+FDD1 **must** be flagged, ordinary CJK must not — proves the scanner cannot be vacuously green |
-| `TestE2E_PromptChain_LiveUpstream` | opt-in (`COMPO_E2E_LIVE=1` + real `SOYA_MODEL_*` env): one sample through a real model, guide.v1 shape validated. Skipped by default — budget discipline |
+| `TestE2E_FastPrompt_LiveUpstream` | opt-in (`COMPO_E2E_LIVE=1`, `SOYA_MODEL_ENABLE_THINKING=false`, and real `SOYA_MODEL_*` env): one real-model call, guide.v1 validation, JSON/HTML/PDF render, total ≤30s. Skipped by default — budget discipline |
 
 ## Chinese font samples (`../examples/`)
 
@@ -57,10 +57,8 @@ Rendered evidence (HTML / print HTML / PDF / screenshots) is archived under
 
 ## Fixtures (`testdata/`)
 
-`analyze-N.md` / `guide-N.md` / `refined-N.md` are the canned **model
-responses** for the three chain stages of sample N, byte-for-byte what the
-mock upstream streams back (split into SSE chunks so `streamCollect`
-reassembly is exercised). They follow the output contracts pinned in
-`../prompts/*.md` (fenced YAML for analyze, fenced guide.v1 JSON for
-generate/refine, refine keeps the teaching skeleton and rewrites only the
-language-level fields).
+`refined-N.md` is used as the canned **fast-prompt model response** for sample
+N. The mock strips its Markdown fence so the production path is tested against
+the bare JSON contract while still splitting it into SSE chunks to exercise
+stream reassembly. `analyze-N.md` and `guide-N.md` remain as quality-mode
+reference fixtures for the inactive three-stage prompt assets.

@@ -10,6 +10,7 @@ authors:
     email: hello@soyaos.ai
 license: MIT
 homepage: https://github.com/soyaos/example-essay-tutor
+entry: prompts/fast_guide.md
 runtime:
   compat: ">=0.1.0 <0.2.0"
 determinism: read-only
@@ -30,22 +31,12 @@ inputs:
     type: string
     optional: true
 
-# 3-step prompt chain (APP-550 Phase B):
-#
-#   analyze  → 解析范文（题材 / 年级 / 亮点）
-#   generate → 生成完整写作指南（结构 / 范例 / 提示）
-#   refine   → 按年级口吻润色 + 体例对齐
-#
-# Each stage's full response is fed as the user input of the next; only
-# the final stage's stream is returned to the caller. This is what
-# lifts the output quality above the single-prompt baseline.
+# Alpha parent-trial profile: a single prompt keeps the complete guide under
+# the 30-second acceptance budget. The original analyze / generate / refine
+# prompts remain in prompts/ as quality-mode reference assets.
 prompt:
   scaffold: minimal-input-high-quality
   tools: [tool.parse_input]
-  steps:
-    - { id: analyze,  prompt: prompts/analyze_sample.md }
-    - { id: generate, prompt: prompts/generate_guide.md }
-    - { id: refine,   prompt: prompts/refine_for_grade.md }
 
 artifacts:
   - kind: html
