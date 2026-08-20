@@ -28,6 +28,14 @@ func TestE2E_RenderArtifacts(t *testing.T) {
 			if !strings.Contains(doc, `"PingFang SC"`) {
 				t.Error(`rendered HTML missing "PingFang SC" in font stack`)
 			}
+			if got := strings.Count(doc, `class="question"`); got != 6 {
+				t.Errorf("rendered HTML guided questions = %d, want 6", got)
+			}
+			for _, want := range []string{"先体验，再写作", "把孩子的口述变成写作素材", "隐私提醒"} {
+				if !strings.Contains(doc, want) {
+					t.Errorf("rendered HTML missing parent-coaching section %q", want)
+				}
+			}
 			// Every font-critical string (常用字 / 生僻字 / 标点混排) must be
 			// present in the final document.
 			for _, want := range r.Sample.MustRender {

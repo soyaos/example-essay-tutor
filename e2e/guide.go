@@ -25,11 +25,35 @@ import (
 type Guide struct {
 	Title            string         `json:"title"`
 	OpeningDirection string         `json:"opening_direction"`
+	ExperiencePlan   ExperiencePlan `json:"experience_plan"`
+	VoiceCapture     VoiceCapture   `json:"voice_capture"`
 	WritingPoints    []WritingPoint `json:"writing_points"`
 	Vocabulary       []VocabEntry   `json:"vocabulary"`
 	GoodPhrases      []GoodPhrase   `json:"good_phrases"`
 	Pitfalls         []Pitfall      `json:"pitfalls"`
 	SampleParagraph  string         `json:"sample_paragraph"`
+}
+
+// ExperiencePlan moves tutoring away from a desk-first worksheet and into a
+// safe, topic-relevant observation activity before the child starts drafting.
+type ExperiencePlan struct {
+	RecommendedScene string           `json:"recommended_scene"`
+	Materials        []string         `json:"materials"`
+	Steps            []ExperienceStep `json:"steps"`
+}
+
+// ExperienceStep is one parent-led action in the experience plan.
+type ExperienceStep struct {
+	Action       string `json:"action"`
+	ParentPrompt string `json:"parent_prompt"`
+}
+
+// VoiceCapture turns the child's spoken observations into their own writing
+// material, with an explicit privacy reminder for this child-facing workflow.
+type VoiceCapture struct {
+	Instruction   string   `json:"instruction"`
+	OrganizeSteps []string `json:"organize_steps"`
+	PrivacyNote   string   `json:"privacy_note"`
 }
 
 // WritingPoint is one of the three "写作要点" cards.
@@ -102,6 +126,24 @@ func (g Guide) Validate() error {
 	if strings.TrimSpace(g.SampleParagraph) == "" {
 		errs = append(errs, "sample_paragraph is empty")
 	}
+	if strings.TrimSpace(g.ExperiencePlan.RecommendedScene) == "" {
+		errs = append(errs, "experience_plan.recommended_scene is empty")
+	}
+	if n := len(g.ExperiencePlan.Materials); n != 3 {
+		errs = append(errs, fmt.Sprintf("experience_plan.materials: want 3, got %d", n))
+	}
+	if n := len(g.ExperiencePlan.Steps); n != 4 {
+		errs = append(errs, fmt.Sprintf("experience_plan.steps: want 4, got %d", n))
+	}
+	if strings.TrimSpace(g.VoiceCapture.Instruction) == "" {
+		errs = append(errs, "voice_capture.instruction is empty")
+	}
+	if n := len(g.VoiceCapture.OrganizeSteps); n != 3 {
+		errs = append(errs, fmt.Sprintf("voice_capture.organize_steps: want 3, got %d", n))
+	}
+	if strings.TrimSpace(g.VoiceCapture.PrivacyNote) == "" {
+		errs = append(errs, "voice_capture.privacy_note is empty")
+	}
 	if n := len(g.WritingPoints); n != 3 {
 		errs = append(errs, fmt.Sprintf("writing_points: want 3, got %d", n))
 	}
@@ -113,6 +155,21 @@ func (g Guide) Validate() error {
 	}
 	if n := len(g.Pitfalls); n != 3 {
 		errs = append(errs, fmt.Sprintf("pitfalls: want 3, got %d", n))
+	}
+	for i, material := range g.ExperiencePlan.Materials {
+		if strings.TrimSpace(material) == "" {
+			errs = append(errs, fmt.Sprintf("experience_plan.materials[%d] is empty", i))
+		}
+	}
+	for i, step := range g.ExperiencePlan.Steps {
+		if strings.TrimSpace(step.Action) == "" || strings.TrimSpace(step.ParentPrompt) == "" {
+			errs = append(errs, fmt.Sprintf("experience_plan.steps[%d] has empty field", i))
+		}
+	}
+	for i, step := range g.VoiceCapture.OrganizeSteps {
+		if strings.TrimSpace(step) == "" {
+			errs = append(errs, fmt.Sprintf("voice_capture.organize_steps[%d] is empty", i))
+		}
 	}
 	for i, p := range g.WritingPoints {
 		if strings.TrimSpace(p.TitleZH) == "" || strings.TrimSpace(p.BodyZH) == "" {
