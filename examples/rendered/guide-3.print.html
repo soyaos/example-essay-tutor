@@ -108,6 +108,52 @@
     }
 
      
+    .coach-card, .voice-note {
+      background: var(--tofu);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 14px 18px;
+      margin-bottom: 14px;
+      break-inside: avoid;
+    }
+    .coach-card h2, .voice-note h2 {
+      font-size: 15px;
+      margin: 0 0 7px;
+    }
+    .scene { margin: 0 0 7px; color: var(--warm-700); }
+    .materials { margin-bottom: 8px; }
+    .material {
+      display: inline-block;
+      background: var(--soybean-skin);
+      border-radius: 9999px;
+      padding: 2px 8px;
+      margin-right: 5px;
+      font-size: 11.5px;
+    }
+    .action-list, .organize-list { margin: 0; padding-left: 20px; }
+    .action-list li, .organize-list li { margin: 5px 0; }
+    .parent-prompt { display: block; color: var(--roasted-soy); font-weight: 600; }
+    .questions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .question {
+      background: var(--warm-50);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 9px 11px;
+      break-inside: avoid;
+    }
+    .question .focus { color: var(--roasted-soy); font-size: 10.5px; font-weight: 700; }
+    .question p { margin: 3px 0 0; font-size: 12px; line-height: 1.5; }
+    .question .follow-up { color: var(--warm-600); }
+    .voice-note { background: var(--soybean-skin); }
+    .voice-note > p { margin: 6px 0; }
+    .privacy { color: var(--adzuki); font-size: 11.5px; }
+
+     
     .points {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
@@ -324,6 +370,44 @@
   <section class="sheet">
     <div class="eyebrow">Compo · 小学作文写作指引（打印版）</div>
     <h1 class="title">我和 AI 下了一盘棋</h1>
+
+    <section class="coach-card">
+      <h2>先体验，再写作</h2>
+      <p class="scene">在家长陪同下用熟悉的棋类应用与 AI 完成一盘限时对局；没有设备时，可复盘最近一盘棋或请家长模拟对手。</p>
+      <div class="materials">
+        <span class="material">棋盘或棋类应用</span><span class="material">纸笔</span><span class="material">计时器</span>
+      </div>
+      <ol class="action-list">
+        
+        <li>开局前写下自己对胜负和 AI 的猜测。<span class="parent-prompt">家长这样问：你觉得 AI 会怎样下棋，为什么？</span></li>
+        
+        <li>对局中在三个关键回合暂停记录。<span class="parent-prompt">家长这样问：这一手出现时，你第一反应是什么？</span></li>
+        
+        <li>结束后找出最意外的一手并复盘。<span class="parent-prompt">家长这样问：如果重来一次，你会怎么选？</span></li>
+        
+        <li>比较开局猜测和真实结果。<span class="parent-prompt">家长这样问：这盘棋改变了你对 AI 的哪一个看法？</span></li>
+        
+      </ol>
+    </section>
+
+    <h2 class="section-label">六个对话问题 · 不给标准答案</h2>
+    <section class="questions">
+      <article class="question"><span class="focus">看</span><p>观察《我和 AI 下了一盘棋》时，你看到了哪些颜色、形状或动作？</p><p class="follow-up">继续追问：哪个具体细节让你这样想？</p></article>
+      <article class="question"><span class="focus">闻</span><p>现场有哪些气味？它们怎样发生变化？</p><p class="follow-up">继续追问：哪一个时刻闻得最清楚？</p></article>
+      <article class="question"><span class="focus">摸 · 温度</span><p>在确保安全的前提下，你感受到哪些触感或温度？</p><p class="follow-up">继续追问：这种感觉后来怎样变化？</p></article>
+      <article class="question"><span class="focus">听</span><p>安静十秒，你听到了哪些远近不同的声音？</p><p class="follow-up">继续追问：哪个声音最能代表当时的现场？</p></article>
+      <article class="question"><span class="focus">联想</span><p>这些真实观察让你想到了什么？为什么？</p><p class="follow-up">继续追问：哪个细节支持你的想法？</p></article>
+      <article class="question"><span class="focus">感受 · 变化</span><p>体验前后，你的想法或心情发生了什么变化？</p><p class="follow-up">继续追问：哪一刻让变化真正发生？</p></article>
+    </section>
+
+    <section class="voice-note">
+      <h2>把孩子的口述变成写作素材</h2>
+      <p>征得孩子同意后，让孩子边看关键局面边连续口述一到两分钟；家长只追问当时想法，不给棋局答案。</p>
+      <ol class="organize-list">
+        <li>记下开局预期、关键转折和赛后发现三组原话。</li><li>为每组补上对应的棋步、数字或身体反应。</li><li>让孩子按对话开局、转折冲突、发现结尾的顺序自行串联。</li>
+      </ol>
+      <p class="privacy">隐私提醒：录音中不说姓名、学校、账号或联系方式；文字整理完成后立即删除原录音。</p>
+    </section>
 
     <section class="opening">
       <h2>开篇方向</h2>

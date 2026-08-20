@@ -110,6 +110,87 @@
     }
 
      
+    .coach-card {
+      background: var(--tofu);
+      border: 1px solid var(--border-subtle);
+      border-radius: 20px;
+      padding: 24px 28px;
+      box-shadow: var(--shadow-card);
+      margin-bottom: 24px;
+    }
+    .coach-card h2 {
+      font-size: 18px;
+      margin: 0 0 12px;
+    }
+    .coach-card .scene {
+      color: var(--warm-700);
+      margin: 0 0 12px;
+    }
+    .materials {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+    .material {
+      background: var(--soybean-skin);
+      border-radius: 9999px;
+      padding: 5px 12px;
+      font-size: 13px;
+      color: var(--warm-700);
+    }
+    .action-list, .organize-list {
+      margin: 0;
+      padding-left: 22px;
+    }
+    .action-list li, .organize-list li {
+      margin: 10px 0;
+      color: var(--warm-700);
+    }
+    .parent-prompt {
+      display: block;
+      margin-top: 3px;
+      color: var(--roasted-soy);
+      font-weight: 600;
+    }
+    .questions {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    @media (min-width: 720px) {
+      .questions { grid-template-columns: 1fr 1fr; }
+    }
+    .question {
+      background: var(--warm-50);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 16px 18px;
+    }
+    .question .focus {
+      color: var(--roasted-soy);
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .question p { margin: 5px 0 0; }
+    .question .follow-up { color: var(--warm-600); font-size: 14px; }
+    .voice-note {
+      background: var(--soybean-skin);
+      border: 1px solid var(--border-medium);
+      border-radius: 20px;
+      padding: 24px 28px;
+      margin-bottom: 40px;
+    }
+    .voice-note h2 { margin: 0 0 10px; font-size: 18px; }
+    .voice-note > p { color: var(--warm-700); }
+    .privacy {
+      font-size: 13px;
+      color: var(--adzuki);
+      margin-bottom: 0;
+    }
+
+     
     .points {
       display: grid;
       grid-template-columns: 1fr;
@@ -295,6 +376,44 @@
   <main class="page">
     <div class="eyebrow">Compo · 小学作文写作指引</div>
     <h1 class="title">难忘的一次劳动</h1>
+
+    <section class="coach-card">
+      <h2>先体验，再写作</h2>
+      <p class="scene">选周末白天，到自家厨房、阳台或亲友菜园完成一项安全劳动；无法外出时，可以擦桌子、择菜或整理书架代替。</p>
+      <div class="materials">
+        <span class="material">儿童手套</span><span class="material">纸笔</span><span class="material">计时器</span>
+      </div>
+      <ol class="action-list">
+        
+        <li>让孩子自己挑一项十分钟能完成的劳动。<span class="parent-prompt">家长这样问：你今天最想亲手完成哪件事？</span></li>
+        
+        <li>劳动前观察工具、材料和现场。<span class="parent-prompt">家长这样问：先别动手，你发现了哪三个以前没注意的细节？</span></li>
+        
+        <li>劳动中停两次，记录身体感觉和变化。<span class="parent-prompt">家长这样问：现在身体哪里最有感觉，和刚开始有什么不同？</span></li>
+        
+        <li>劳动后比较前后并选出最难忘的一刻。<span class="parent-prompt">家长这样问：如果只留一个画面给读者看，你会选哪一刻？</span></li>
+        
+      </ol>
+    </section>
+
+    <h2 class="section-label">六个对话问题 · 不给标准答案</h2>
+    <section class="questions">
+      <article class="question"><span class="focus">看</span><p>观察《难忘的一次劳动》时，你看到了哪些颜色、形状或动作？</p><p class="follow-up">继续追问：哪个具体细节让你这样想？</p></article>
+      <article class="question"><span class="focus">闻</span><p>现场有哪些气味？它们怎样发生变化？</p><p class="follow-up">继续追问：哪一个时刻闻得最清楚？</p></article>
+      <article class="question"><span class="focus">摸 · 温度</span><p>在确保安全的前提下，你感受到哪些触感或温度？</p><p class="follow-up">继续追问：这种感觉后来怎样变化？</p></article>
+      <article class="question"><span class="focus">听</span><p>安静十秒，你听到了哪些远近不同的声音？</p><p class="follow-up">继续追问：哪个声音最能代表当时的现场？</p></article>
+      <article class="question"><span class="focus">联想</span><p>这些真实观察让你想到了什么？为什么？</p><p class="follow-up">继续追问：哪个细节支持你的想法？</p></article>
+      <article class="question"><span class="focus">感受 · 变化</span><p>体验前后，你的想法或心情发生了什么变化？</p><p class="follow-up">继续追问：哪一刻让变化真正发生？</p></article>
+    </section>
+
+    <section class="voice-note">
+      <h2>把孩子的口述变成写作素材</h2>
+      <p>征得孩子同意后，请孩子对着录音设备连续讲一到两分钟；家长只用上面的问题追问，不打断、不纠正句子。</p>
+      <ol class="organize-list">
+        <li>逐字记下最有画面的三句孩子原话。</li><li>把原话分别放进开头画面、重点细节和结尾感受。</li><li>让孩子自己补连接句并朗读检查，不替孩子代写全文。</li>
+      </ol>
+      <p class="privacy">隐私提醒：录音中不说姓名、学校、班级或联系方式；整理成文字素材后立即删除原录音。</p>
+    </section>
 
     <section class="opening">
       <h2>开篇方向</h2>

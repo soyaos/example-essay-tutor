@@ -110,6 +110,87 @@
     }
 
      
+    .coach-card {
+      background: var(--tofu);
+      border: 1px solid var(--border-subtle);
+      border-radius: 20px;
+      padding: 24px 28px;
+      box-shadow: var(--shadow-card);
+      margin-bottom: 24px;
+    }
+    .coach-card h2 {
+      font-size: 18px;
+      margin: 0 0 12px;
+    }
+    .coach-card .scene {
+      color: var(--warm-700);
+      margin: 0 0 12px;
+    }
+    .materials {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+    .material {
+      background: var(--soybean-skin);
+      border-radius: 9999px;
+      padding: 5px 12px;
+      font-size: 13px;
+      color: var(--warm-700);
+    }
+    .action-list, .organize-list {
+      margin: 0;
+      padding-left: 22px;
+    }
+    .action-list li, .organize-list li {
+      margin: 10px 0;
+      color: var(--warm-700);
+    }
+    .parent-prompt {
+      display: block;
+      margin-top: 3px;
+      color: var(--roasted-soy);
+      font-weight: 600;
+    }
+    .questions {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    @media (min-width: 720px) {
+      .questions { grid-template-columns: 1fr 1fr; }
+    }
+    .question {
+      background: var(--warm-50);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 16px 18px;
+    }
+    .question .focus {
+      color: var(--roasted-soy);
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .question p { margin: 5px 0 0; }
+    .question .follow-up { color: var(--warm-600); font-size: 14px; }
+    .voice-note {
+      background: var(--soybean-skin);
+      border: 1px solid var(--border-medium);
+      border-radius: 20px;
+      padding: 24px 28px;
+      margin-bottom: 40px;
+    }
+    .voice-note h2 { margin: 0 0 10px; font-size: 18px; }
+    .voice-note > p { color: var(--warm-700); }
+    .privacy {
+      font-size: 13px;
+      color: var(--adzuki);
+      margin-bottom: 0;
+    }
+
+     
     .points {
       display: grid;
       grid-template-columns: 1fr;
@@ -295,6 +376,44 @@
   <main class="page">
     <div class="eyebrow">Compo · 小学作文写作指引</div>
     <h1 class="title">外婆的灶台</h1>
+
+    <section class="coach-card">
+      <h2>先体验，再写作</h2>
+      <p class="scene">在家长陪同下回到外婆厨房观察一次做饭；无法前往时，请外婆展示安全厨具或一起看家庭旧照片回忆。</p>
+      <div class="materials">
+        <span class="material">纸笔</span><span class="material">家庭照片</span><span class="material">录音设备</span>
+      </div>
+      <ol class="action-list">
+        
+        <li>先在安全距离观察灶台全貌和摆放。<span class="parent-prompt">家长这样问：第一眼你最先看到什么，为什么它抓住了你？</span></li>
+        
+        <li>请外婆介绍一件最常用的厨具。<span class="parent-prompt">家长这样问：这件东西用了多久，它留下了哪些痕迹？</span></li>
+        
+        <li>观察一道食物制作中的气味、声音和动作。<span class="parent-prompt">家长这样问：哪一个瞬间最像你记忆里的外婆？</span></li>
+        
+        <li>离开厨房后画出一个最想保存的画面。<span class="parent-prompt">家长这样问：画面里一定要留下哪三样东西？</span></li>
+        
+      </ol>
+    </section>
+
+    <h2 class="section-label">六个对话问题 · 不给标准答案</h2>
+    <section class="questions">
+      <article class="question"><span class="focus">看</span><p>观察《外婆的灶台》时，你看到了哪些颜色、形状或动作？</p><p class="follow-up">继续追问：哪个具体细节让你这样想？</p></article>
+      <article class="question"><span class="focus">闻</span><p>现场有哪些气味？它们怎样发生变化？</p><p class="follow-up">继续追问：哪一个时刻闻得最清楚？</p></article>
+      <article class="question"><span class="focus">摸 · 温度</span><p>在确保安全的前提下，你感受到哪些触感或温度？</p><p class="follow-up">继续追问：这种感觉后来怎样变化？</p></article>
+      <article class="question"><span class="focus">听</span><p>安静十秒，你听到了哪些远近不同的声音？</p><p class="follow-up">继续追问：哪个声音最能代表当时的现场？</p></article>
+      <article class="question"><span class="focus">联想</span><p>这些真实观察让你想到了什么？为什么？</p><p class="follow-up">继续追问：哪个细节支持你的想法？</p></article>
+      <article class="question"><span class="focus">感受 · 变化</span><p>体验前后，你的想法或心情发生了什么变化？</p><p class="follow-up">继续追问：哪一刻让变化真正发生？</p></article>
+    </section>
+
+    <section class="voice-note">
+      <h2>把孩子的口述变成写作素材</h2>
+      <p>征得孩子和外婆同意后，让孩子连续讲一到两分钟厨房记忆；家长只追问细节，不替孩子润色。</p>
+      <ol class="organize-list">
+        <li>保留三句最有气味、声音或动作的孩子原话。</li><li>按眼前灶台、外婆动作、我的感受分成三组。</li><li>让孩子选一组作为重点展开，家长只帮助排序。</li>
+      </ol>
+      <p class="privacy">隐私提醒：录音不说姓名、住址、学校或联系方式；整理成文字素材后立即删除原录音。</p>
+    </section>
 
     <section class="opening">
       <h2>开篇方向</h2>
